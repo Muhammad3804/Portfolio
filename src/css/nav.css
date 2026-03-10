@@ -1,0 +1,83 @@
+/* ── NAVIGATION ──────────────────────────────────────────── */
+
+/* Crystal Glassmorphism Pill Nav */
+nav {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1000px;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+
+  /* Glassmorphism */
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+/* Scroll-progress fill layer */
+.nav-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15));
+  z-index: 0;
+  transition: width 0.1s linear;
+}
+
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: #fff;
+  letter-spacing: -0.5px;
+  text-transform: none;
+  position: relative;
+  z-index: 1;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+  position: relative;
+  z-index: 1;
+}
+
+.nav-links a {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: 'DM Mono', monospace;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  position: relative;
+}
+
+.nav-links a:hover {
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+/* ── CURSOR INTERACTION WITH NAV/CARDS ───────────────────── */
+#cursor { mix-blend-mode: screen; }
+
+body:has(a:hover) #cursor,
+body:has(.card:hover) #cursor {
+  width: 20px;
+  height: 20px;
+  background: var(--accent2);
+}

@@ -1,123 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Muhammad Bin Musaddiq — CS student & developer building Android apps, full-stack web systems, and systems software." />
   <title>Muhammad Bin Musaddiq</title>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap"
+    rel="stylesheet" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/cursor.css" />
-  <link rel="stylesheet" href="css/nav.css" />
-  <link rel="stylesheet" href="css/hero.css" />
-  <link rel="stylesheet" href="css/sections.css" />
-  <style>
-    /* Crystal Glass Navigation Override */
-    nav {
-      /* Positioning & Sizing */
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90%;
-      max-width: 1000px;
-      right: auto; /* Override from nav.css */
-      z-index: 1000;
-
-      /* Layout */
-      padding: 1rem 2rem;
-
-      /* Glassmorphism Effect */
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08); /* Overrides border-bottom */
-      border-radius: 100px;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-      overflow: hidden;
-    }
-
-    .nav-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.2rem;
-      color: #fff;
-      letter-spacing: -0.5px;
-      text-transform: none;
-      position: relative;
-      z-index: 1;
-    }
-
-    .nav-links {
-      position: relative;
-      z-index: 1;
-    }
-
-    .nav-links a {
-      color: rgba(255, 255, 255, 0.6);
-      transition: all 0.3s ease;
-    }
-
-    .nav-links a:hover {
-      color: #fff;
-      text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-    }
-
-    /* Disable underline effect from nav.css */
-    .nav-links a:hover::after {
-      width: 0;
-    }
-
-    .nav-fill {
-      position: absolute;
-      top: 0; left: 0; bottom: 0;
-      width: 0%;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15));
-      z-index: 0;
-      transition: width 0.1s linear;
-    }
-
-    /* ── ADDED INTERACTIVITY ────────────────────────────── */
-    
-    /* Noise Overlay */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.4;
-    }
-
-    /* Cursor Interaction */
-    #cursor { mix-blend-mode: screen; }
-    
-    body:has(a:hover) #cursor, 
-    body:has(.card:hover) #cursor {
-      width: 20px; height: 20px;
-      background: var(--accent2);
-    }
-  </style>
+  <link rel="stylesheet" href="src/css/base.css" />
+  <link rel="stylesheet" href="src/css/cursor.css" />
+  <link rel="stylesheet" href="src/css/nav.css" />
+  <link rel="stylesheet" href="src/css/hero.css" />
+  <link rel="stylesheet" href="src/css/sections.css" />
 </head>
+
 <body>
 
-  <!-- WebGL Canvas -->
+  <!-- WebGL Background Canvas -->
   <canvas id="glcanvas"></canvas>
 
-  <!-- Cursor -->
+  <!-- Custom Cursor -->
   <div id="cursor"></div>
   <div id="cursor-ring"></div>
 
-  <!-- Custom Scrollbar -->
+  <!-- Custom Floating Scrollbar -->
   <div id="custom-scrollbar">
     <div id="custom-scroll-thumb"></div>
   </div>
 
-  <!-- NAV (Moved outside .content for proper fixed positioning) -->
+  <!-- Navigation -->
   <nav>
     <div class="nav-fill"></div>
     <div class="nav-logo">MBM</div>
@@ -129,6 +47,7 @@
     </ul>
   </nav>
 
+  <!-- Page Content -->
   <div class="content">
 
     <!-- HERO -->
@@ -143,7 +62,7 @@
       </p>
       <div class="hero-cta">
         <a href="#projects" class="btn-primary">View Work</a>
-        <a href="#contact"  class="btn-ghost">Get in touch →</a>
+        <a href="#contact" class="btn-ghost">Get in touch →</a>
       </div>
       <div class="scroll-indicator">
         <div class="scroll-line"></div>
@@ -151,7 +70,7 @@
       </div>
     </section>
 
-    <!-- TICKER -->
+    <!-- SKILLS TICKER -->
     <div class="ticker-wrap">
       <div class="ticker">
         <div class="ticker-item">C++</div>
@@ -164,7 +83,7 @@
         <div class="ticker-item">Node.js</div>
         <div class="ticker-item">MongoDB</div>
         <div class="ticker-item">Express</div>
-        <!-- Duplicate for seamless loop -->
+        <!-- Duplicate for seamless infinite loop -->
         <div class="ticker-item">C++</div>
         <div class="ticker-item">JavaScript</div>
         <div class="ticker-item">MERN Stack</div>
@@ -226,7 +145,8 @@
             <div class="card-num">01</div>
             <span class="card-icon">🐦</span>
             <h3 class="card-title">Flappy Bird</h3>
-            <p class="card-desc">A full Android clone of the classic Flappy Bird game. Tap to fly, dodge the pipes, beat your high score. Built natively for Android with smooth physics.</p>
+            <p class="card-desc">A full Android clone of the classic Flappy Bird game. Tap to fly, dodge the pipes, beat
+              your high score. Built natively for Android with smooth physics.</p>
             <div class="card-tags">
               <span class="tag">Kotlin</span>
               <span class="tag">Android</span>
@@ -238,7 +158,8 @@
             <div class="card-num">02</div>
             <span class="card-icon">🌐</span>
             <h3 class="card-title">Web Projects</h3>
-            <p class="card-desc">A collection of full-stack web applications built using the MERN stack. Dynamic UIs, REST APIs, database integration, and real-world functionality.</p>
+            <p class="card-desc">A collection of full-stack web applications built using the MERN stack. Dynamic UIs,
+              REST APIs, database integration, and real-world functionality.</p>
             <div class="card-tags">
               <span class="tag">React</span>
               <span class="tag">Node.js</span>
@@ -251,7 +172,8 @@
             <div class="card-num">03</div>
             <span class="card-icon">📒</span>
             <h3 class="card-title">Contact Book</h3>
-            <p class="card-desc">A terminal-based contact management system in C++. Add, search, update, and delete contacts using custom data structures — no STL shortcuts.</p>
+            <p class="card-desc">A terminal-based contact management system in C++. Add, search, update, and delete
+              contacts using custom data structures — no STL shortcuts.</p>
             <div class="card-tags">
               <span class="tag">C++</span>
               <span class="tag">Data Structures</span>
@@ -268,15 +190,15 @@
       <div class="section-label">Capabilities</div>
       <h2 class="section-title reveal">Skills</h2>
       <div class="skills-wrapper">
-        <div class="skill-item reveal">              <span class="skill-dot"></span>C++</div>
+        <div class="skill-item reveal"> <span class="skill-dot"></span>C++</div>
         <div class="skill-item reveal reveal-delay-1"><span class="skill-dot"></span>C</div>
         <div class="skill-item reveal reveal-delay-2"><span class="skill-dot"></span>JavaScript</div>
         <div class="skill-item reveal reveal-delay-3"><span class="skill-dot"></span>Kotlin</div>
-        <div class="skill-item reveal">              <span class="skill-dot"></span>React</div>
+        <div class="skill-item reveal"> <span class="skill-dot"></span>React</div>
         <div class="skill-item reveal reveal-delay-1"><span class="skill-dot"></span>Node.js</div>
         <div class="skill-item reveal reveal-delay-2"><span class="skill-dot"></span>Express.js</div>
         <div class="skill-item reveal reveal-delay-3"><span class="skill-dot"></span>MongoDB</div>
-        <div class="skill-item reveal">              <span class="skill-dot"></span>Android Dev</div>
+        <div class="skill-item reveal"> <span class="skill-dot"></span>Android Dev</div>
         <div class="skill-item reveal reveal-delay-1"><span class="skill-dot"></span>SQL</div>
         <div class="skill-item reveal reveal-delay-2"><span class="skill-dot"></span>HTML / CSS</div>
         <div class="skill-item reveal reveal-delay-3"><span class="skill-dot"></span>Git</div>
@@ -296,8 +218,10 @@
         </div>
         <div class="contact-links reveal reveal-delay-2">
           <a href="mailto:mbinmusaddiq@gmail.com" class="contact-link">Email <span>→</span></a>
-          <a href="https://github.com/Muhammad3804" target="_blank" class="contact-link">GitHub <span>→</span></a>
-          <a href="https://linkedin.com/in/mbinmusaddiq" target="_blank" class="contact-link">LinkedIn <span>→</span></a>
+          <a href="https://github.com/Muhammad3804" target="_blank" rel="noopener noreferrer"
+            class="contact-link">GitHub <span>→</span></a>
+          <a href="https://linkedin.com/in/mbinmusaddiq" target="_blank" rel="noopener noreferrer"
+            class="contact-link">LinkedIn <span>→</span></a>
         </div>
       </div>
     </section>
@@ -309,11 +233,15 @@
 
   </div><!-- /.content -->
 
-  <!-- Scripts -->
+  <!-- Vendor -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="js/cursor.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/webgl.js"></script>
+
+  <!-- App Scripts (order matters: cursor → ui → projects → scene) -->
+  <script src="src/js/cursor.js"></script>
+  <script src="src/js/ui.js"></script>
+  <script src="src/js/projects.js"></script>
+  <script src="src/js/scene.js"></script>
 
 </body>
+
 </html>

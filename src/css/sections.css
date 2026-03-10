@@ -19,7 +19,8 @@ section {
 
 .section-label::before {
   content: '';
-  width: 32px; height: 1px;
+  width: 32px;
+  height: 1px;
   background: var(--accent);
 }
 
@@ -121,8 +122,10 @@ section {
 .stat-box::before {
   content: '';
   position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 2px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
   background: linear-gradient(90deg, var(--accent), transparent);
   transform: scaleX(0);
   transform-origin: left;
@@ -151,8 +154,8 @@ section {
 
 /* ── PROJECTS ────────────────────────────────────────────── */
 #projects {
-  height: 300vh; /* Create scroll space (less than before for faster card switching) */
-  padding: 0;    /* Remove padding to allow full-screen sticky */
+  height: 300vh;
+  padding: 0;
 }
 
 .project-sticky {
@@ -172,14 +175,16 @@ section {
   position: relative;
   width: 100%;
   max-width: 800px;
-  height: 400px; /* Fixed height for the card stack */
+  height: 400px;
   margin-top: 40px;
 }
 
 .card {
   position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: var(--glass);
   border: 1px solid var(--border);
   padding: 40px;
@@ -288,7 +293,9 @@ section {
 .skill-item::before {
   content: '';
   position: absolute;
-  left: 0; top: 0; bottom: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
   width: 2px;
   background: var(--accent);
   transform: scaleY(0);
@@ -304,7 +311,8 @@ section {
 .skill-item:hover::before { transform: scaleY(1); }
 
 .skill-dot {
-  width: 6px; height: 6px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: var(--accent);
   flex-shrink: 0;

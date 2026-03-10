@@ -58,6 +58,7 @@
   animation: fadeUp 0.8s 0.8s forwards;
 }
 
+/* ── BUTTONS ─────────────────────────────────────────────── */
 .btn-primary {
   padding: 14px 36px;
   background: var(--accent);
@@ -88,9 +89,11 @@
 
 .btn-ghost:hover { color: var(--fg); }
 
+/* ── SCROLL INDICATOR ────────────────────────────────────── */
 .scroll-indicator {
   position: absolute;
-  bottom: 40px; left: 48px;
+  bottom: 40px;
+  left: 48px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -104,7 +107,8 @@
 }
 
 .scroll-line {
-  width: 40px; height: 1px;
+  width: 40px;
+  height: 1px;
   background: rgba(0, 212, 255, 0.3);
   position: relative;
   overflow: hidden;
@@ -113,8 +117,10 @@
 .scroll-line::after {
   content: '';
   position: absolute;
-  top: 0; left: -100%;
-  width: 100%; height: 100%;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
   background: var(--accent);
   animation: scrollSlide 2s 1.5s infinite;
 }
