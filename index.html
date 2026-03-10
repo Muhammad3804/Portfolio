@@ -214,14 +214,51 @@
           Whether it's a project, a collaboration, or just wanting to say hi —
           I'm always open to a conversation.<br><br>
           Currently open to internships, freelance work,
-          and interesting side projects.
+          and interesting side projects.<br><br>
+          <a href="mailto:mbinmusaddiq@gmail.com" class="contact-email">mbinmusaddiq@gmail.com →</a>
         </div>
-        <div class="contact-links reveal reveal-delay-2">
-          <a href="mailto:mbinmusaddiq@gmail.com" class="contact-link">Email <span>→</span></a>
-          <a href="https://github.com/Muhammad3804" target="_blank" rel="noopener noreferrer"
-            class="contact-link">GitHub <span>→</span></a>
-          <a href="https://linkedin.com/in/mbinmusaddiq" target="_blank" rel="noopener noreferrer"
-            class="contact-link">LinkedIn <span>→</span></a>
+        <div class="social-carousel reveal reveal-delay-2">
+
+          <!-- Prev arrow -->
+          <button class="carousel-arrow" id="social-prev" aria-label="Previous">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+
+          <!-- Stage -->
+          <div class="carousel-stage">
+            <a href="https://instagram.com/mohodied" target="_blank" rel="noopener noreferrer"
+               class="social-slide active" data-name="Instagram">
+              <canvas id="social-instagram" class="social-canvas" width="500" height="500"></canvas>
+            </a>
+            <a href="https://github.com/Muhammad3804" target="_blank" rel="noopener noreferrer"
+               class="social-slide" data-name="GitHub">
+              <canvas id="social-github" class="social-canvas" width="500" height="500"></canvas>
+            </a>
+            <a href="https://linkedin.com/in/mbinmusaddiq" target="_blank" rel="noopener noreferrer"
+               class="social-slide" data-name="LinkedIn">
+              <canvas id="social-linkedin" class="social-canvas" width="500" height="500"></canvas>
+            </a>
+
+            <!-- Label -->
+            <div class="social-current-name" id="social-current-name">Instagram</div>
+
+            <!-- Dot indicators -->
+            <div class="carousel-dots">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+
+          <!-- Next arrow -->
+          <button class="carousel-arrow" id="social-next" aria-label="Next">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+
         </div>
       </div>
     </section>
@@ -241,6 +278,7 @@
   <script src="src/js/ui.js"></script>
   <script src="src/js/projects.js"></script>
   <script src="src/js/scene.js"></script>
+  <script src="src/js/socials.js"></script>
 
 </body>
 
