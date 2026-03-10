@@ -14,7 +14,10 @@
   --border:  rgba(0, 212, 255, 0.15);
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Hide default scrollbar (Firefox) */
+}
 
 body {
   background: var(--bg);
@@ -22,6 +25,35 @@ body {
   font-family: 'Syne', sans-serif;
   overflow-x: hidden;
   cursor: none;
+}
+
+/* ── CUSTOM FLOATING SCROLLBAR ───────────────────────────── */
+::-webkit-scrollbar {
+  display: none; /* Hide default scrollbar (Chrome/Safari) */
+}
+
+/* The Track (Container) */
+#custom-scrollbar {
+  position: fixed;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+  height: 30vh; /* 30% of viewport height */
+  width: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  z-index: 9000;
+}
+
+/* The Thumb (Indicator) */
+#custom-scroll-thumb {
+  position: absolute;
+  width: 4px;
+  left: -1px; /* Center on the 2px track */
+  background: var(--accent);
+  border-radius: 4px;
+  box-shadow: 0 0 10px var(--accent);
+  transition: height 0.1s, top 0.1s;
 }
 
 /* ── NOISE OVERLAY ───────────────────────────────────────── */

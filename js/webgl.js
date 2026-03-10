@@ -202,7 +202,7 @@ function initScene() {
 
     camera.position.x += (mouseX * 0.3  - camera.position.x) * 0.05;
     camera.position.y += (mouseY * 0.2  - camera.position.y) * 0.05;
-    camera.position.z  = 5 - scrollY * 0.002;
+    camera.position.z  = 5 - scrollY * 0.00165;
 
     renderer.render(scene, camera);
   })();
