@@ -146,7 +146,7 @@
       ray.setFromCamera(ndc,camera);
       ray.ray.intersectPlane(plane,hit);
       mwX=hit.x; mwY=hit.y;
-    });
+    }, { passive: true });
     slide.addEventListener('mouseleave', () => { mwX=9999; mwY=9999; });
 
     return { renderer,scene,camera,mesh,home,cur,vel,amt,wand,dum,pl,ol,bl, getMX:()=>mwX, getMY:()=>mwY };

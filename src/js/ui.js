@@ -24,56 +24,65 @@ document.querySelectorAll('.card').forEach(card => {
     const y = ((e.clientY - rect.top)  / rect.height) * 100;
     card.style.setProperty('--mx', x + '%');
     card.style.setProperty('--my', y + '%');
-  });
+  }, { passive: true });
 });
 
-// ── NAV SCROLL PROGRESS ───────────────────────────────────
-const navFill = document.querySelector('.nav-fill');
+// ── SCROLL DIMENSION CACHE ────────────────────────────────
+let winHeight = 0;
+let docHeight = 0;
+let scrollable = 0;
+let trackHeight = 0;
 
-function updateNavProgress() {
-  if (!navFill) return;
-  const scrollTop    = window.scrollY;
-  const docHeight    = document.documentElement.scrollHeight - window.innerHeight;
-  const scrollPercent = (scrollTop / docHeight) * 100;
-  navFill.style.width = `${Math.min(100, Math.max(0, scrollPercent))}%`;
-}
-
-// ── CUSTOM SCROLLBAR SYNC ─────────────────────────────────
 const scrollTrack = document.getElementById('custom-scrollbar');
 const scrollThumb = document.getElementById('custom-scroll-thumb');
+const navFill     = document.querySelector('.nav-fill');
 
-function updateCustomScroll() {
-  if (!scrollTrack || !scrollThumb) return;
-
-  const winScroll  = window.scrollY;
-  const docHeight  = document.documentElement.scrollHeight;
-  const winHeight  = window.innerHeight;
-  const scrollable = docHeight - winHeight;
-
-  const scrollPercent = scrollable > 0 ? winScroll / scrollable : 0;
-  const trackHeight   = scrollTrack.clientHeight;
-
-  let thumbHeight = (winHeight / docHeight) * trackHeight;
-  thumbHeight     = Math.max(20, thumbHeight); // enforce minimum
-
-  const maxTop   = trackHeight - thumbHeight;
-  const thumbTop = scrollPercent * maxTop;
-
-  scrollThumb.style.height = `${thumbHeight}px`;
-  scrollThumb.style.top    = `${thumbTop}px`;
+function cacheDimensions() {
+  winHeight  = window.innerHeight;
+  docHeight  = document.documentElement.scrollHeight;
+  scrollable = Math.max(0, docHeight - winHeight);
+  if (scrollTrack) trackHeight = scrollTrack.clientHeight;
 }
 
-// ── EVENT BINDINGS ────────────────────────────────────────
-window.addEventListener('scroll', () => {
-  updateNavProgress();
-  updateCustomScroll();
-});
+// Use ResizeObserver so we only recalculate page height when it actually changes
+const resizeObserver = new ResizeObserver(() => cacheDimensions());
+resizeObserver.observe(document.body);
+window.addEventListener('resize', cacheDimensions, { passive: true });
+cacheDimensions();
 
-window.addEventListener('resize', () => {
-  updateNavProgress();
-  updateCustomScroll();
-});
+// ── SMOOTH SCROLL UI RENDERER ─────────────────────────────
+let currentScroll = window.scrollY || 0;
 
-// Initial calls
-updateNavProgress();
-updateCustomScroll();
+function renderSmoothUI() {
+  const targetScroll = window.scrollY;
+  
+  // Smoothly interpolate towards actual scroll position
+  if (Math.abs(targetScroll - currentScroll) > 0.5) {
+    currentScroll += (targetScroll - currentScroll) * 0.08; // Adjust 0.08 for more/less smoothing
+  } else {
+    currentScroll = targetScroll;
+  }
+
+  // Update Nav Loading Bar
+  if (navFill && scrollable > 0) {
+    const navProgress = currentScroll / scrollable;
+    navFill.style.transform = `scaleX(${Math.min(1, Math.max(0, navProgress))})`;
+  }
+
+  // Update Custom Scrollbar Position (GPU accelerated)
+  if (scrollThumb && trackHeight > 0 && docHeight > 0) {
+    let thumbHeight = (winHeight / docHeight) * trackHeight;
+    thumbHeight = Math.max(20, thumbHeight); 
+    
+    const scrollPercent = scrollable > 0 ? currentScroll / scrollable : 0;
+    const maxTop = trackHeight - thumbHeight;
+    const thumbTop = scrollPercent * maxTop;
+    
+    scrollThumb.style.height = `${thumbHeight}px`;
+    scrollThumb.style.transform = `translateY(${thumbTop}px)`; 
+  }
+
+  requestAnimationFrame(renderSmoothUI);
+}
+
+requestAnimationFrame(renderSmoothUI);

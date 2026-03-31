@@ -37,8 +37,20 @@ function updateProjectScroll() {
   });
 }
 
-window.addEventListener('scroll', updateProjectScroll);
-window.addEventListener('resize', updateProjectScroll);
+let isTicking = false;
+
+function onScrollOrResize() {
+  if (!isTicking) {
+    window.requestAnimationFrame(() => {
+      updateProjectScroll();
+      isTicking = false;
+    });
+    isTicking = true;
+  }
+}
+
+window.addEventListener('scroll', onScrollOrResize, { passive: true });
+window.addEventListener('resize', onScrollOrResize, { passive: true });
 
 // Activate the first card on load
 updateProjectScroll();

@@ -19,6 +19,7 @@ const FRAG_SHADER = /* glsl */`
   uniform float uTime;
   uniform vec2  uMouse;
   uniform vec2  uResolution;
+  uniform float uFade;
   varying vec2  vUv;
 
   float hash(vec2 p) {
@@ -76,6 +77,7 @@ const FRAG_SHADER = /* glsl */`
     // Vignette
     float vig = 1.0 - smoothstep(0.4, 1.2, length(uv - 0.5) * 1.8);
     color *= vig;
+    color *= uFade;
 
     gl_FragColor = vec4(color, 1.0);
   }
@@ -104,6 +106,7 @@ function initScene() {
       uTime: { value: 0 },
       uMouse: { value: new THREE.Vector2(0.5, 0.5) },
       uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+      uFade: { value: 1.0 },
     },
     vertexShader: VERT_SHADER,
     fragmentShader: FRAG_SHADER,
@@ -181,6 +184,7 @@ function initScene() {
   // ── INPUT TRACKING ───────────────────────────────────────
   let mouseX = 0, mouseY = 0;
   let scrollY = 0;
+  let targetScrollY = 0;
 
   document.addEventListener('mousemove', e => {
     mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
@@ -189,9 +193,9 @@ function initScene() {
       e.clientX / window.innerWidth,
       1 - e.clientY / window.innerHeight
     );
-  });
+  }, { passive: true });
 
-  window.addEventListener('scroll', () => { scrollY = window.scrollY; });
+  window.addEventListener('scroll', () => { targetScrollY = window.scrollY; }, { passive: true });
 
   // ── RESIZE ───────────────────────────────────────────────
   window.addEventListener('resize', () => {
@@ -199,7 +203,7 @@ function initScene() {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
     bgMaterial.uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
-  });
+  }, { passive: true });
 
   // ── RENDER LOOP ──────────────────────────────────────────
   const clock = new THREE.Clock();
@@ -219,9 +223,16 @@ function initScene() {
     particles.rotation.y = t * 0.02;
     particles.rotation.x = t * 0.01;
 
+    scrollY += (targetScrollY - scrollY) * 0.05; // Smooth scroll interpolation
     camera.position.x += (mouseX * 0.3 - camera.position.x) * 0.05;
     camera.position.y += (mouseY * 0.2 - camera.position.y) * 0.05;
     camera.position.z = 5 - scrollY * 0.00155;
+
+    // Fade background to black smoothly before the camera clips through it
+    const dist = camera.position.z - (-2.0); // bgMesh is at z = -2.0
+    // The fade now happens much later, in a tighter window (dist from 1.0 to 0.1)
+    // This keeps the background blue for longer as you scroll down.
+    bgMaterial.uniforms.uFade.value = Math.max(0.0, Math.min(1.0, (dist - 0.1) / 0.9));
 
     renderer.render(scene, camera);
   })();
